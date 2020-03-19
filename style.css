@@ -1,0 +1,23 @@
+body {
+    background-color: #eee;
+    box-sizing: border-box;
+}
+
+#container-easy {
+    width: 350px;
+    height: 280px;
+    background-color: #ccc;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+}
+
+.easy-button {
+    width: 35px;
+    height: 35px;
+    background-color: #636abe;
+    border-color: blue;
+    border: solid;
+}
