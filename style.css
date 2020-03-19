@@ -3,21 +3,35 @@ body {
     box-sizing: border-box;
 }
 
-#container-easy {
+#container {
     width: 350px;
     height: 280px;
     background-color: #ccc;
     margin: 50px auto;
     display: flex;
     flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: center;
 }
 
-.easy-button {
-    width: 35px;
-    height: 35px;
+.game-button-easy {
     background-color: #636abe;
     border-color: blue;
     border: solid;
+    height: 25px;
+    width: 25px;
+}
+
+.game-button-medium {
+    background-color: #636abe;
+    border-color: blue;
+    border: solid;
+    height: 20px;
+    width: 20px;
+}
+
+.game-button-hard {
+    background-color: #636abe;
+    border-color: blue;
+    border: solid;
+    height: 15px;
+    width: 15px;
 }
