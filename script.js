@@ -69,20 +69,20 @@ function createBombs() {
         var jBomb = Math.floor(Math.random() * jBound);
 
         // check that this cell does not already have a bomb
-        if (bombs[i] !== (iBomb.toString() + "," + jBomb.toString())) {
+        if (!bombs.includes(iBomb.toString() + "," + jBomb.toString())) {
             // assign value to bomb array
             bombs[i] = iBomb.toString() + "," + jBomb.toString();
-            
+
             // assign has-bomb class to corresponding button
             var buttonWithBomb = document.getElementById(bombs[i]);
             if (difficulty === "easy") {
-                buttonWithBomb.setAttribute("class", "game-button-easy has-bomb");
+                buttonWithBomb.setAttribute("data-bomb", "true");
             }
             else if (difficulty === "medium") {
-                buttonWithBomb.setAttribute("class", "game-button-medium has-bomb");
+                buttonWithBomb.setAttribute("data-bomb", "true");
             }
             else {
-                buttonWithBomb.setAttribute("class", "game-button-hard has-bomb");
+                buttonWithBomb.setAttribute("data-bomb", "true");
             }
         }
         else {
@@ -93,19 +93,26 @@ function createBombs() {
 }
 
 // Show all bombs because you lost!
-function blowUp(){
-    for (var i = 0; i < bombs.length; i++){
+function blowUp() {
+    var i = 0;
+    interval = setInterval(function () {
         document.getElementById(bombs[i]).textContent = "#";
-    }
+        i++;
+        if (i == bombs.length){
+            alert("Game Over!");
+            clearInterval(interval)
+        }
+    }, 50);
 }
 
 createGrid();
 createBombs();
 
 // Look for clicks
-document.addEventListener("click", function(){
-    if (event.target.classList.contains("has-bomb")){
+var interval;
+document.addEventListener("click", function () {
+    if (event.target.hasAttribute("data-bomb")) {
         event.target.textContent = "#";
         blowUp();
-        setTimeout(function(){alert("Game Over!");},500);
-    }});
+    }
+});
