@@ -4,8 +4,6 @@ body {
 }
 
 #container {
-    width: 350px;
-    height: 280px;
     background-color: #ccc;
     margin: 50px auto;
     display: flex;

@@ -94,3 +94,4 @@ function createBombs() {
 
 createGrid();
 createBombs();
+
