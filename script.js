@@ -42,13 +42,13 @@ function createGrid() {
 
             // Set class of button based on difficulty
             if (difficulty === "easy") {
-                dummy.setAttribute("class", "game-button-easy game-button");
+                dummy.setAttribute("class", "game-button-easy");
             }
             else if (difficulty === "medium") {
-                dummy.setAttribute("class", "game-button-medium game-button");
+                dummy.setAttribute("class", "game-button-medium");
             }
             else {
-                dummy.setAttribute("class", "game-button-hard game-button");
+                dummy.setAttribute("class", "game-button-hard");
             }
 
             //convert i and j to strings, add them, set that string to id of current button
@@ -76,13 +76,13 @@ function createBombs() {
             // assign has-bomb class to corresponding button
             var buttonWithBomb = document.getElementById(bombs[i]);
             if (difficulty === "easy") {
-                buttonWithBomb.setAttribute("class", "game-button-easy game-button has-bomb");
+                buttonWithBomb.setAttribute("class", "game-button-easy has-bomb");
             }
             else if (difficulty === "medium") {
-                buttonWithBomb.setAttribute("class", "game-button-medium game-button has-bomb");
+                buttonWithBomb.setAttribute("class", "game-button-medium has-bomb");
             }
             else {
-                buttonWithBomb.setAttribute("class", "game-button-hard game-button has-bomb");
+                buttonWithBomb.setAttribute("class", "game-button-hard has-bomb");
             }
         }
         else {
@@ -92,18 +92,20 @@ function createBombs() {
     }
 }
 
-// function buttonClicked(){
-//     if (event.target.classList.contains(has-bomb)){
-//         alert("Bomb!");
-//     }
-// }
+// Show all bombs because you lost!
+function blowUp(){
+    for (var i = 0; i < bombs.length; i++){
+        document.getElementById(bombs[i]).textContent = "#";
+    }
+}
 
 createGrid();
 createBombs();
 
-// var allButtons = document.getElementsByClassName("game-button");
-// console.log(allButtons);
+// Look for clicks
 document.addEventListener("click", function(){
     if (event.target.classList.contains("has-bomb")){
-        alert("Bomb!");
+        event.target.textContent = "#";
+        blowUp();
+        setTimeout(function(){alert("Game Over!");},500);
     }});
