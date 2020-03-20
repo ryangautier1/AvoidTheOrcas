@@ -42,13 +42,13 @@ function createGrid() {
 
             // Set class of button based on difficulty
             if (difficulty === "easy") {
-                dummy.setAttribute("class", "game-button-easy");
+                dummy.setAttribute("class", "game-button-easy game-button");
             }
             else if (difficulty === "medium") {
-                dummy.setAttribute("class", "game-button-medium");
+                dummy.setAttribute("class", "game-button-medium game-button");
             }
             else {
-                dummy.setAttribute("class", "game-button-hard");
+                dummy.setAttribute("class", "game-button-hard game-button");
             }
 
             //convert i and j to strings, add them, set that string to id of current button
@@ -76,13 +76,13 @@ function createBombs() {
             // assign has-bomb class to corresponding button
             var buttonWithBomb = document.getElementById(bombs[i]);
             if (difficulty === "easy") {
-                buttonWithBomb.setAttribute("class", "game-button-easy has-bomb");
+                buttonWithBomb.setAttribute("class", "game-button-easy game-button has-bomb");
             }
             else if (difficulty === "medium") {
-                buttonWithBomb.setAttribute("class", "game-button-medium has-bomb");
+                buttonWithBomb.setAttribute("class", "game-button-medium game-button has-bomb");
             }
             else {
-                buttonWithBomb.setAttribute("class", "game-button-hard has-bomb");
+                buttonWithBomb.setAttribute("class", "game-button-hard game-button has-bomb");
             }
         }
         else {
@@ -92,6 +92,18 @@ function createBombs() {
     }
 }
 
+// function buttonClicked(){
+//     if (event.target.classList.contains(has-bomb)){
+//         alert("Bomb!");
+//     }
+// }
+
 createGrid();
 createBombs();
 
+// var allButtons = document.getElementsByClassName("game-button");
+// console.log(allButtons);
+document.addEventListener("click", function(){
+    if (event.target.classList.contains("has-bomb")){
+        alert("Bomb!");
+    }});
