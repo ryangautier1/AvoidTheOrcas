@@ -121,6 +121,7 @@ document.getElementById("container").addEventListener("click", function () {
 });
 
 function checkForBombs(event) {
+    var btnClickedNBombs = 0;
     var btnClickedId = event.target.id;
     btnClickedId = btnClickedId.split(",");
     // btnClickedId[0] = row, btnClickedId[1] = col
@@ -128,10 +129,21 @@ function checkForBombs(event) {
 
     // for a button not on the edge
     // up and left
-
     var newId = (JSON.stringify(btnClickedId)[2]-1) + "," + (JSON.stringify(btnClickedId)[6]-1);
-    
-    
-    document.getElementById(newId).classList.add("bombless");
+    if (document.getElementById(newId).hasAttribute("data-bomb")) {
+        btnClickedNBombs++;
+    }
+    else {
+        document.getElementById(newId).classList.add("bombless");
+    }
+
+    // up and center
+    var newId = (JSON.stringify(btnClickedId)[2]-1) + "," + (JSON.stringify(btnClickedId)[6]);
+    if (document.getElementById(newId).hasAttribute("data-bomb")) {
+        btnClickedNBombs++;
+    }
+    else {
+        document.getElementById(newId).classList.add("bombless");
+    }
 
 }
