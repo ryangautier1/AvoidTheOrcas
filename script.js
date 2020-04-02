@@ -110,7 +110,7 @@ createBombs();
 
 // Look for clicks
 var interval;
-document.addEventListener("click", function () {
+document.getElementById("container").addEventListener("click", function () {
     if (event.target.hasAttribute("data-bomb")) {
         event.target.textContent = "#";
         blowUp();
@@ -125,10 +125,11 @@ function checkForBombs(event) {
     btnClickedId = btnClickedId.split(",");
     // btnClickedId[0] = row, btnClickedId[1] = col
 
+
     // for a button not on the edge
     // up and left
 
-    var newId = (JSON.stringify(btnClickedId)[2]-1) + "," + (JSON.stringify(btnClickedId)[2]-1);
+    var newId = (JSON.stringify(btnClickedId)[2]-1) + "," + (JSON.stringify(btnClickedId)[6]-1);
     
     
     document.getElementById(newId).classList.add("bombless");
