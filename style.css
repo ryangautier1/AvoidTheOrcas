@@ -33,3 +33,7 @@ body {
     height: 15px;
     width: 15px;
 }
+
+.bombless {
+    background-color: black;
+}

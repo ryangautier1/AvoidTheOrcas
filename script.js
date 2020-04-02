@@ -73,7 +73,7 @@ function createBombs() {
             // assign value to bomb array
             bombs[i] = iBomb.toString() + "," + jBomb.toString();
 
-            // assign has-bomb class to corresponding button
+            // assign data-bomb attribute to corresponding button
             var buttonWithBomb = document.getElementById(bombs[i]);
             if (difficulty === "easy") {
                 buttonWithBomb.setAttribute("data-bomb", "true");
@@ -115,4 +115,22 @@ document.addEventListener("click", function () {
         event.target.textContent = "#";
         blowUp();
     }
+    else {
+        checkForBombs(event);
+    }
 });
+
+function checkForBombs(event) {
+    var btnClickedId = event.target.id;
+    btnClickedId = btnClickedId.split(",");
+    // btnClickedId[0] = row, btnClickedId[1] = col
+
+    // for a button not on the edge
+    // up and left
+
+    var newId = (JSON.stringify(btnClickedId)[2]-1) + "," + (JSON.stringify(btnClickedId)[2]-1);
+    
+    
+    document.getElementById(newId).classList.add("bombless");
+
+}
