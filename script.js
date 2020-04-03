@@ -147,7 +147,7 @@ function checkForBombs(id) {
     console.log(id);
 
     // for a button not on the top edge or left edge
-    if (parseInt(id[0]) !== 0 || parseInt(id[1]) !== 0) {
+    if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== 0) {
         // up and left
         var newId0 = parseInt(id[0]) - 1;
         var newId1 = parseInt(id[1]) - 1;
@@ -175,7 +175,7 @@ function checkForBombs(id) {
         }
     }
     // for a button not on the top edge or right edge
-    if (parseInt(id[0]) !== 0 || parseInt(id[1]) !== jBound - 1) {
+    if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== jBound - 1) {
         // up and right
         var newId0 = parseInt(id[0]) - 1;
         var newId1 = parseInt(id[1]) + 1;
@@ -217,7 +217,7 @@ function checkForBombs(id) {
         }
     }
     // for a button not on the bottom edge or left edge
-    if (parseInt(id[0]) !== 0 || parseInt(id[1]) !== jBound - 1) {
+    if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== 0) {
         // down and left
         var newId0 = parseInt(id[0]) + 1;
         var newId1 = parseInt(id[1]) - 1;
@@ -244,7 +244,7 @@ function checkForBombs(id) {
         }
     }
     // for a button not on the bottom edge or the right edge
-    if (parseInt(id[0]) !== iBound - 1 || parseInt(id[1]) !== jBound - 1) {
+    if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== jBound - 1) {
         // down and right
         var newId0 = parseInt(id[0]) + 1;
         var newId1 = parseInt(id[1]) + 1;
@@ -282,5 +282,3 @@ function checkForBombs(id) {
     // }
 
 }
-
-// if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== 0 && parseInt(id[0]) !== (iBound - 1) && parseInt(id[1]) !== jBound - 1) {
