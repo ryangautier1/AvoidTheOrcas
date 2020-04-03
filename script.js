@@ -98,7 +98,7 @@ function blowUp() {
     interval = setInterval(function () {
         document.getElementById(bombs[i]).textContent = "#";
         i++;
-        if (i == bombs.length){
+        if (i == bombs.length) {
             alert("Game Over!");
             clearInterval(interval)
         }
@@ -116,34 +116,171 @@ document.getElementById("container").addEventListener("click", function () {
         blowUp();
     }
     else {
-        checkForBombs(event);
+
+        var newId = event.target.id.split(",");
+        // console.log(parseInt(newId[1]) + 1);
+
+        // var newId = JSON.stringify(event.target.id);
+        // console.log(typeof newId[1]);
+
+        // var newId0 = JSON.stringify(event.target.id)[2];
+        // newId0 = parseInt(newId0);
+        // var newId1 = JSON.stringify(event.target.id)[6];
+        // newId1 = parseInt(newId1);
+
+        // var newId = newId[1] + "," + newId[3];
+
+        checkForBombs(newId);
     }
 });
 
-function checkForBombs(event) {
+function checkForBombs(id) {
     var btnClickedNBombs = 0;
-    var btnClickedId = event.target.id;
-    btnClickedId = btnClickedId.split(",");
-    // btnClickedId[0] = row, btnClickedId[1] = col
+    // var hasBomb = false;
+    var id0 = parseInt(id[0]);
+    var id1 = parseInt(id[1]);
+    var newId = id0 + "," + id1;
+    // if (!document.getElementById(newId).classList.contains("bombless")) {
+    document.getElementById(newId).classList.add("bombless");
 
+    // id[0] = row, id[1] = col
+    console.log(id);
 
-    // for a button not on the edge
-    // up and left
-    var newId = (JSON.stringify(btnClickedId)[2]-1) + "," + (JSON.stringify(btnClickedId)[6]-1);
-    if (document.getElementById(newId).hasAttribute("data-bomb")) {
-        btnClickedNBombs++;
-    }
-    else {
-        document.getElementById(newId).classList.add("bombless");
-    }
+    // for a button not on the top edge or left edge
+    if (parseInt(id[0]) !== 0 || parseInt(id[1]) !== 0) {
+        // up and left
+        var newId0 = parseInt(id[0]) - 1;
+        var newId1 = parseInt(id[1]) - 1;
 
-    // up and center
-    var newId = (JSON.stringify(btnClickedId)[2]-1) + "," + (JSON.stringify(btnClickedId)[6]);
-    if (document.getElementById(newId).hasAttribute("data-bomb")) {
-        btnClickedNBombs++;
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        // if (!document.getElementById(newId).classList.contains("bombless")) {
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
     }
-    else {
-        document.getElementById(newId).classList.add("bombless");
+    // for a button not on the top edge
+    if (parseInt(id[0]) !== 0) {
+        // up and center
+        var newId0 = parseInt(id[0]) - 1;
+        var newId1 = parseInt(id[1]);
+
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        // if (!document.getElementById(newId).classList.contains("bombless")) {
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
     }
+    // for a button not on the top edge or right edge
+    if (parseInt(id[0]) !== 0 || parseInt(id[1]) !== jBound - 1) {
+        // up and right
+        var newId0 = parseInt(id[0]) - 1;
+        var newId1 = parseInt(id[1]) + 1;
+
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        // if (!document.getElementById(newId).classList.contains("bombless")) {
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
+    }
+    // for a button not on the left edge
+    if (parseInt(id[1]) !== 0) {
+        // center and left
+        var newId0 = parseInt(id[0]);
+        var newId1 = parseInt(id[1]) - 1;
+
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        // if (!document.getElementById(newId).classList.contains("bombless")) {
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
+    }
+    // for a button not on the right edge
+    if (parseInt(id[1]) !== jBound - 1) {
+        // center and right
+        var newId0 = parseInt(id[0]);
+        var newId1 = parseInt(id[1]) + 1;
+
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        // if (!document.getElementById(newId).classList.contains("bombless")) {
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
+    }
+    // for a button not on the bottom edge or left edge
+    if (parseInt(id[0]) !== 0 || parseInt(id[1]) !== jBound - 1) {
+        // down and left
+        var newId0 = parseInt(id[0]) + 1;
+        var newId1 = parseInt(id[1]) - 1;
+
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
+    }
+    // for a button not on the bottom edge
+    if (parseInt(id[0]) !== iBound - 1) {
+        // down and center
+        var newId0 = parseInt(id[0]) + 1;
+        var newId1 = parseInt(id[1]);
+
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        // if (!document.getElementById(newId).classList.contains("bombless")) {
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
+    }
+    // for a button not on the bottom edge or the right edge
+    if (parseInt(id[0]) !== iBound - 1 || parseInt(id[1]) !== jBound - 1) {
+        // down and right
+        var newId0 = parseInt(id[0]) + 1;
+        var newId1 = parseInt(id[1]) + 1;
+
+        var newId = newId0.toString() + "," + newId1.toString();
+        console.log(newId);
+
+        // if (!document.getElementById(newId).classList.contains("bombless")) {
+        if (document.getElementById(newId).hasAttribute("data-bomb")) {
+            btnClickedNBombs++;
+        }
+    }
+    if (btnClickedNBombs !== 0) {
+        document.getElementById(id).textContent = btnClickedNBombs;
+    }
+    // else {
+    //     // top left
+    //     checkForBombs([(parseInt(id[0]) - 1).toString(), (parseInt(id[0]) - 1).toString()]);
+    //     // top center
+    //     checkForBombs([(parseInt(id[0]) - 1).toString(), (parseInt(id[0])).toString()]);
+    //     // top right
+    //     checkForBombs([(parseInt(id[0]) - 1).toString(), (parseInt(id[0]) + 1).toString()]);
+    //     // center left
+    //     checkForBombs([(parseInt(id[0])).toString(), (parseInt(id[0]) - 1).toString()]);
+    //     // center right
+    //     checkForBombs([(parseInt(id[0])).toString(), (parseInt(id[0]) + 1).toString()]);
+    //     // bottom left
+    //     checkForBombs([(parseInt(id[0]) + 1).toString(), (parseInt(id[0]) - 1).toString()]);
+    //     // bottom center
+    //     checkForBombs([(parseInt(id[0]) + 1).toString(), (parseInt(id[0])).toString()]);
+    //     // bottom right
+    //     checkForBombs([(parseInt(id[0]) + 1).toString(), (parseInt(id[0]) + 1).toString()]);
+    // }
+
+    // }
 
 }
+
+// if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== 0 && parseInt(id[0]) !== (iBound - 1) && parseInt(id[1]) !== jBound - 1) {
