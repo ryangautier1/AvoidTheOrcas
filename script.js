@@ -261,22 +261,78 @@ function checkForBombs(id) {
         document.getElementById(id).textContent = btnClickedNBombs;
     }
     // else {
-    //     // top left
-    //     checkForBombs([(parseInt(id[0]) - 1).toString(), (parseInt(id[0]) - 1).toString()]);
-    //     // top center
-    //     checkForBombs([(parseInt(id[0]) - 1).toString(), (parseInt(id[0])).toString()]);
-    //     // top right
-    //     checkForBombs([(parseInt(id[0]) - 1).toString(), (parseInt(id[0]) + 1).toString()]);
-    //     // center left
-    //     checkForBombs([(parseInt(id[0])).toString(), (parseInt(id[0]) - 1).toString()]);
-    //     // center right
-    //     checkForBombs([(parseInt(id[0])).toString(), (parseInt(id[0]) + 1).toString()]);
-    //     // bottom left
-    //     checkForBombs([(parseInt(id[0]) + 1).toString(), (parseInt(id[0]) - 1).toString()]);
-    //     // bottom center
-    //     checkForBombs([(parseInt(id[0]) + 1).toString(), (parseInt(id[0])).toString()]);
-    //     // bottom right
-    //     checkForBombs([(parseInt(id[0]) + 1).toString(), (parseInt(id[0]) + 1).toString()]);
+    //     if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== 0) {
+    //         // top left
+    //         var newId0 = parseInt(id[0]) - 1;
+    //         var newId1 = parseInt(id[1]) - 1;
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
+
+    //     if (parseInt(id[0]) !== 0) {
+    //         // top center
+    //         checkForBombs([(parseInt(id[0]) - 1).toString(), (parseInt(id[0])).toString()]);
+    //         var newId0 = parseInt(id[0]) - 1;
+    //         var newId1 = parseInt(id[1]);
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
+
+    //     if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== jBound - 1) {
+    //         // top right
+    //         var newId0 = parseInt(id[0]) - 1;
+    //         var newId1 = parseInt(id[1]) + 1;
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
+
+    //     if (parseInt(id[1]) !== 0) {
+    //         // center left
+    //         var newId0 = parseInt(id[0]);
+    //         var newId1 = parseInt(id[1]) - 1;
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
+
+    //     if (parseInt(id[1]) !== jBound - 1) {
+    //         // center right
+    //         var newId0 = parseInt(id[0]);
+    //         var newId1 = parseInt(id[1]) + 1;
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
+
+    //     if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== 0) {
+    //         // bottom left
+    //         var newId0 = parseInt(id[0]) + 1;
+    //         var newId1 = parseInt(id[1]) - 1;
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
+
+    //     if (parseInt(id[0]) !== iBound - 1) {
+    //         // bottom center
+    //         var newId0 = parseInt(id[0]) + 1;
+    //         var newId1 = parseInt(id[1]);
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
+
+    //     if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== jBound - 1) {
+    //         // bottom right
+    //         var newId0 = parseInt(id[0]) + 1;
+    //         var newId1 = parseInt(id[1]) + 1;
+    //         var newId = newId0.toString() + "," + newId1.toString();
+    //         newId = newId.split(",");
+    //         checkForBombs(newId);
+    //     }
     // }
 
     // }
