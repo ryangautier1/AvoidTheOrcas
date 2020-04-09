@@ -14,16 +14,16 @@ if (difficulty === "easy") {
 else if (difficulty === "medium") {
     var iBound = 14;
     var jBound = 18;
-    var nBombs = 40;
+    var nBombs = 32;
     var container = document.getElementById("container");
     // Dimensions based on 20px buttons
-    container.style.width = "360px";
-    container.style.height = "280px";
+    container.style.width = "360px"; // 20*18
+    container.style.height = "280px"; // 20*14
 }
 else {
     var iBound = 20;
     var jBound = 24;
-    var nBombs = 99;
+    var nBombs = 75;
     var container = document.getElementById("container");
     // Dimensions based on 15px buttons
     container.style.width = "360px";
@@ -118,17 +118,6 @@ document.getElementById("container").addEventListener("click", function () {
     else {
 
         var newId = event.target.id.split(",");
-        // console.log(parseInt(newId[1]) + 1);
-
-        // var newId = JSON.stringify(event.target.id);
-        // console.log(typeof newId[1]);
-
-        // var newId0 = JSON.stringify(event.target.id)[2];
-        // newId0 = parseInt(newId0);
-        // var newId1 = JSON.stringify(event.target.id)[6];
-        // newId1 = parseInt(newId1);
-
-        // var newId = newId[1] + "," + newId[3];
 
         checkForBombs(newId);
     }
@@ -142,9 +131,15 @@ function checkForBombs(id) {
     var newId = id0 + "," + id1;
     // if (!document.getElementById(newId).classList.contains("bombless")) {
     document.getElementById(newId).classList.add("bombless");
-
+    
+    // clear any flags
+    if (document.getElementById(id).textContent == "F") {
+        document.getElementById(id).textContent = "";
+        nFlags++;
+        console.log(nFlags);
+    }
+    
     // id[0] = row, id[1] = col
-    // console.log(id);
 
     // for a button not on the top edge or left edge
     if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== 0) {
@@ -153,7 +148,6 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) - 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -167,7 +161,6 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]);
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -181,7 +174,6 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) + 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -195,7 +187,6 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) - 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -209,9 +200,7 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) + 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
-        // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
         }
@@ -223,7 +212,6 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) - 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
@@ -236,9 +224,7 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]);
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
-        // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
         }
@@ -250,9 +236,7 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) + 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
-        console.log(newId);
 
-        // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
         }
@@ -358,4 +342,31 @@ function checkForBombs(id) {
 
     }
 
+}
+
+// right click event
+
+
+var nFlags = nBombs;
+
+window.oncontextmenu = function (event) {
+    // if it was a button
+    if (event.target.id !== "") {
+        event.preventDefault();
+        // if it has not been revealed yet
+        if (!event.target.classList.contains("bombless")) {
+            // if it's not already flagged
+            if (event.target.textContent !== "F") {
+                event.target.textContent = "F";
+                nFlags--;
+                console.log(`nFlags = ${nFlags}`);
+            }
+            // if it is already flagged
+            else {
+                event.target.textContent = "";
+                nFlags++;
+                console.log(`nFlags = ${nFlags}`);
+            }
+        }
+    }
 }
