@@ -287,62 +287,75 @@ function checkForBombs(id) {
                 checkForBombs(newId);
             }
         }
-    }
-            //     if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== jBound - 1) {
-            //         // top right
-            //         var newId0 = parseInt(id[0]) - 1;
-            //         var newId1 = parseInt(id[1]) + 1;
-            //         var newId = newId0.toString() + "," + newId1.toString();
-            //         newId = newId.split(",");
-            //         checkForBombs(newId);
-            //     }
+        // for a button not on the top edge or right edge
+        if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== jBound - 1) {
+            // up and right
 
-            //     if (parseInt(id[1]) !== 0) {
-            //         // center left
-            //         var newId0 = parseInt(id[0]);
-            //         var newId1 = parseInt(id[1]) - 1;
-            //         var newId = newId0.toString() + "," + newId1.toString();
-            //         newId = newId.split(",");
-            //         checkForBombs(newId);
-            //     }
-
-            //     if (parseInt(id[1]) !== jBound - 1) {
-            //         // center right
-            //         var newId0 = parseInt(id[0]);
-            //         var newId1 = parseInt(id[1]) + 1;
-            //         var newId = newId0.toString() + "," + newId1.toString();
-            //         newId = newId.split(",");
-            //         checkForBombs(newId);
-            //     }
-
-            //     if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== 0) {
-            //         // bottom left
-            //         var newId0 = parseInt(id[0]) + 1;
-            //         var newId1 = parseInt(id[1]) - 1;
-            //         var newId = newId0.toString() + "," + newId1.toString();
-            //         newId = newId.split(",");
-            //         checkForBombs(newId);
-            //     }
-
-            //     if (parseInt(id[0]) !== iBound - 1) {
-            //         // bottom center
-            //         var newId0 = parseInt(id[0]) + 1;
-            //         var newId1 = parseInt(id[1]);
-            //         var newId = newId0.toString() + "," + newId1.toString();
-            //         newId = newId.split(",");
-            //         checkForBombs(newId);
-            //     }
-
-            //     if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== jBound - 1) {
-            //         // bottom right
-            //         var newId0 = parseInt(id[0]) + 1;
-            //         var newId1 = parseInt(id[1]) + 1;
-            //         var newId = newId0.toString() + "," + newId1.toString();
-            //         newId = newId.split(",");
-            //         checkForBombs(newId);
-            //     }
-            // }
-
-            // }
-
+            var newId0 = parseInt(id[0]) - 1;
+            var newId1 = parseInt(id[1]) + 1;
+            var newId = newId0.toString() + "," + newId1.toString();
+            newId = newId.split(",");
+            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
+                checkForBombs(newId);
+            }
         }
+
+
+        if (parseInt(id[1]) !== 0) {
+            // center left
+            var newId0 = parseInt(id[0]);
+            var newId1 = parseInt(id[1]) - 1;
+            var newId = newId0.toString() + "," + newId1.toString();
+            newId = newId.split(",");
+            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
+                checkForBombs(newId);
+            }
+        }
+
+        if (parseInt(id[1]) !== jBound - 1) {
+            // center right
+            var newId0 = parseInt(id[0]);
+            var newId1 = parseInt(id[1]) + 1;
+            var newId = newId0.toString() + "," + newId1.toString();
+            newId = newId.split(",");
+            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
+                checkForBombs(newId);
+            }
+        }
+
+        if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== 0) {
+            // bottom left
+            var newId0 = parseInt(id[0]) + 1;
+            var newId1 = parseInt(id[1]) - 1;
+            var newId = newId0.toString() + "," + newId1.toString();
+            newId = newId.split(",");
+            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
+                checkForBombs(newId);
+            }
+        }
+
+        if (parseInt(id[0]) !== iBound - 1) {
+            // bottom center
+            var newId0 = parseInt(id[0]) + 1;
+            var newId1 = parseInt(id[1]);
+            var newId = newId0.toString() + "," + newId1.toString();
+            newId = newId.split(",");
+            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
+                checkForBombs(newId);
+            }
+        }
+
+        if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== jBound - 1) {
+            // bottom right
+            var newId0 = parseInt(id[0]) + 1;
+            var newId1 = parseInt(id[1]) + 1;
+            var newId = newId0.toString() + "," + newId1.toString();
+            newId = newId.split(",");
+            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
+                checkForBombs(newId);
+            }
+        }
+
+    }
+
+}
