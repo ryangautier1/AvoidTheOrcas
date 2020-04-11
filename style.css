@@ -32,14 +32,23 @@ body {
     border: solid transparent;
 }
 
+.light-btn:hover {
+    border: solid 1px #eee;
+}
+
 .dark-btn {
     background-color: #7eb1db;
-    border: solid transparent;
+    border: solid 1px transparent;
+}
+
+.dark-btn:hover {
+    border: solid 1px #eee;
 }
 
 .bombless {
     background-color: #a7a7a7;
     border: solid #8b8b8b;
+    text-align: center;
 }
 
 .orca{

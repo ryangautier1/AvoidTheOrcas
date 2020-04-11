@@ -149,12 +149,16 @@ document.getElementById("container").addEventListener("click", function () {
 
 function checkForBombs(id) {
     var btnClickedNBombs = 0;
-    // var hasBomb = false;
+
     var id0 = parseInt(id[0]);
     var id1 = parseInt(id[1]);
     var newId = id0 + "," + id1;
-    // if (!document.getElementById(newId).classList.contains("bombless")) {
+
+    // add bombless class and remove light and dark 
     document.getElementById(newId).classList.add("bombless");
+    document.getElementById(newId).classList.remove("light-btn");
+    document.getElementById(newId).classList.remove("dark-btn");
+
     
     // clear any flags
     if (document.getElementById(id).textContent == "F") {
