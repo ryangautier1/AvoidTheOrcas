@@ -1,6 +1,5 @@
 body {
     background-color: #eee;
-    box-sizing: border-box;
 }
 
 #container {
@@ -11,29 +10,49 @@ body {
 }
 
 .game-button-easy {
-    background-color: #636abe;
-    border-color: blue;
-    border: solid;
+    box-sizing: border-box;
+    height: 30px;
+    width: 30px;
+}
+
+.game-button-medium {
+    box-sizing: border-box;
     height: 25px;
     width: 25px;
 }
 
-.game-button-medium {
-    background-color: #636abe;
-    border-color: blue;
-    border: solid;
-    height: 20px;
-    width: 20px;
-}
-
 .game-button-hard {
-    background-color: #636abe;
-    border-color: blue;
-    border: solid;
+    box-sizing: border-box;
     height: 15px;
     width: 15px;
 }
 
+.light-btn {
+    background-color: #9ac6eb;
+    border: solid transparent;
+}
+
+.dark-btn {
+    background-color: #7eb1db;
+    border: solid transparent;
+}
+
 .bombless {
-    background-color: grey;
+    background-color: #a7a7a7;
+    border: solid #8b8b8b;
+}
+
+.orca{
+    margin: 1px;
+    height: 21px;
+    width: 21px;
+}
+
+footer {
+    text-align: center;
+    font-size: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

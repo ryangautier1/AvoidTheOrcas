@@ -5,20 +5,20 @@ var difficulty = prompt("easy, medium, or hard?");
 if (difficulty === "easy") {
     var iBound = 8;
     var jBound = 10;
-    var nBombs = 10;
+    var nBombs = 12;
     var container = document.getElementById("container");
     // Dimensions based on 25px buttons
-    container.style.width = "250px";
-    container.style.height = "200px";
+    container.style.width = "300px"; // 250
+    container.style.height = "240px"; // 200
 }
 else if (difficulty === "medium") {
-    var iBound = 14;
-    var jBound = 18;
-    var nBombs = 32;
+    var iBound = 14; // 14
+    var jBound = 18; // 18
+    var nBombs = 34;
     var container = document.getElementById("container");
-    // Dimensions based on 20px buttons
-    container.style.width = "360px"; // 20*18
-    container.style.height = "280px"; // 20*14
+    // Dimensions based on 25px buttons
+    container.style.width = "450px"; // 20*18 or 25*18
+    container.style.height = "350px"; // 20*14 or 25*14
 }
 else {
     var iBound = 20;
@@ -37,10 +37,10 @@ function createGrid() {
     // iterate to create buttons
     for (var i = 0; i < iBound; i++) {
         for (var j = 0; j < jBound; j++) {
-            var dummy = document.createElement("button");
+            var dummy = document.createElement("div");
             document.getElementById("container").appendChild(dummy);
 
-            // Set class of button based on difficulty
+            // Set size of button based on difficulty
             if (difficulty === "easy") {
                 dummy.setAttribute("class", "game-button-easy");
             }
@@ -50,6 +50,29 @@ function createGrid() {
             else {
                 dummy.setAttribute("class", "game-button-hard");
             }
+
+            // set color of button based on position
+            // on even rows
+            if (i % 2 == 0){
+                // set the first button lighter and alternate
+                if (j % 2 == 0){
+                    dummy.classList.add("light-btn");
+                }
+                else {
+                    dummy.classList.add("dark-btn");
+                }
+            }
+            // on odd rows
+            else {
+                // set the first button darker and alternate
+                if (j % 2 == 0){
+                    dummy.classList.add("dark-btn");
+                }
+                else {
+                    dummy.classList.add("light-btn");
+                }
+            }
+
 
             //convert i and j to strings, add them, set that string to id of current button
             var id = i.toString() + "," + j.toString();
@@ -96,7 +119,8 @@ function createBombs() {
 function blowUp() {
     var i = 0;
     interval = setInterval(function () {
-        document.getElementById(bombs[i]).textContent = "#";
+        document.getElementById(bombs[i]).innerHTML = "<img src='./assets/orca.png' alt='Image of Orca' class='orca'/>";
+
         i++;
         if (i == bombs.length) {
             alert("Game Over!");
@@ -112,7 +136,7 @@ createBombs();
 var interval;
 document.getElementById("container").addEventListener("click", function () {
     if (event.target.hasAttribute("data-bomb")) {
-        event.target.textContent = "#";
+        event.target.innerHTML = "<img src='./assets/orca.png' alt='Image of Orca'/>";
         blowUp();
     }
     else {
