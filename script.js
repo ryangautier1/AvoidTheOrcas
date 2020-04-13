@@ -471,3 +471,9 @@ document.querySelector("#difficulty-section").addEventListener("click", function
 document.querySelector("#start-btn").addEventListener("click", function () {
     init();
 });
+
+document.querySelector("#save-btn").addEventListener("click", function () {
+    // var scores
+    // localStorage.setItem("", scores);
+    console.log("saved score")
+});
