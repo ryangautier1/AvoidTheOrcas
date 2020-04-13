@@ -136,7 +136,7 @@ function createBombs() {
 // Show all bombs because you lost!
 function blowUp() {
     var i = 0;
-    interval = setInterval(function () {
+    var interval = setInterval(function () {
         document.getElementById(bombs[i]).innerHTML = "<img src='./assets/orca.png' alt='Image of Orca' class='orca'/>";
 
         i++;
@@ -157,7 +157,6 @@ function init() {
 }
 
 // Look for clicks
-var interval;
 container.addEventListener("click", function () {
     if (event.target.hasAttribute("data-bomb")) {
         event.target.innerHTML = "<img src='./assets/orca.png' alt='Image of Orca'/>";
@@ -166,13 +165,13 @@ container.addEventListener("click", function () {
     else {
 
         var newId = event.target.id.split(",");
-
         checkForBombs(newId);
     }
 });
 
 function checkForBombs(id) {
     var btnClickedNBombs = 0;
+
 
     var id0 = parseInt(id[0]);
     var id1 = parseInt(id[1]);
@@ -422,10 +421,10 @@ window.oncontextmenu = function (event) {
 
 
 function startTimer() {
-    var time = document.querySelector("#timer").textContent.split(":");
-    var seconds = parseInt(time[1]);
-    var minutes = parseInt(time[0]);
-    interval = setInterval(function () {
+    // var time = document.querySelector("#timer").textContent.split(":");
+    // var seconds = parseInt(time[1]);
+    // var minutes = parseInt(time[0]);
+    var interval = setInterval(function () {
         var time = document.querySelector("#timer").textContent.split(":");
         var seconds = parseInt(time[1]);
         var minutes = parseInt(time[0]);
@@ -438,17 +437,22 @@ function startTimer() {
             seconds=00;
         }
 
-        if (seconds < 10 && seconds !== 00); {
+        if (seconds < 10) {
             seconds = "0" + seconds;
         }
         document.querySelector("#timer").textContent = `${minutes}:${seconds}`;
-        // check if time is up
-        // if (false) {
-        //     gameOver();
-        //     clearInterval(interval);
-        // }
+        // check if player has won
+        // if nBombless = iBound*jBound - nBombs
+        if (document.querySelectorAll(".bombless").length == ((iBound*jBound) - nBombs)) {
+            clearInterval(interval);
+            gameOverWin();
+        }
     }, 1000);
 };
+
+function gameOverWin() {
+    alert("You Won!");
+}
 
 document.querySelector("#difficulty-section").addEventListener("click", function () {
     document.querySelector("#start-btn").classList.remove("hidden");
@@ -458,4 +462,3 @@ document.querySelector("#start-btn").addEventListener("click", function () {
     document.querySelector("#start-btn").classList.add("hidden");
     init();
 });
-
