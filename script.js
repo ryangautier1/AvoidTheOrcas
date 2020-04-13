@@ -8,6 +8,27 @@ var nFlags;
 var difficulty;
 var ended;
 
+// Print scores to highscores
+var scores = {
+    easy: {
+        names: [JSON.parse(localStorage.getItem("scores")).easy.names],
+        scores: [JSON.parse(localStorage.getItem("scores")).easy.scores]
+    },
+    medium: {
+        names: [JSON.parse(localStorage.getItem("scores")).medium.names],
+        scores: [JSON.parse(localStorage.getItem("scores")).medium.scores]
+    },
+    hard: {
+        names: [JSON.parse(localStorage.getItem("scores")).hard.names],
+        scores: [JSON.parse(localStorage.getItem("scores")).hard.scores]
+    }
+}
+
+// document.getElementById("easy-scores").textContent = (JSON.parse(localStorage.getItem("scores")).easy);
+// document.getElementById("medium-scores").textContent = (JSON.parse(localStorage.getItem("scores")).medium);
+// document.getElementById("hard-scores").textContent = (JSON.parse(localStorage.getItem("scores")).hard);
+
+
 // Obtain difficulty from user input
 function getDifficulty() {
     ended = false;
@@ -161,17 +182,17 @@ function init() {
 
 // Look for clicks
 container.addEventListener("click", function () {
-    if (!ended){
-    if (event.target.hasAttribute("data-bomb")) {
-        event.target.innerHTML = "<img src='./assets/orca.png' alt='Image of Orca'/>";
-        blowUp();
-    }
-    else {
+    if (!ended) {
+        if (event.target.hasAttribute("data-bomb")) {
+            event.target.innerHTML = "<img src='./assets/orca.png' alt='Image of Orca'/>";
+            blowUp();
+        }
+        else {
 
-        var newId = event.target.id.split(",");
-        checkForBombs(newId);
+            var newId = event.target.id.split(",");
+            checkForBombs(newId);
+        }
     }
-}
 });
 
 function checkForBombs(id) {
@@ -426,7 +447,7 @@ window.oncontextmenu = function (event) {
 
 
 function startTimer() {
-    
+
     document.querySelector("#timer").textContent = "0:00";
 
     var interval = setInterval(function () {
@@ -436,10 +457,9 @@ function startTimer() {
         if (seconds < 59) {
             seconds++;
         }
-        else
-        {
+        else {
             minutes++;
-            seconds=00;
+            seconds = 00;
         }
 
         if (seconds < 10) {
@@ -448,7 +468,7 @@ function startTimer() {
         document.querySelector("#timer").textContent = `${minutes}:${seconds}`;
         // check if player has won
         // if nBombless = iBound*jBound - nBombs
-        if (document.querySelectorAll(".bombless").length == ((iBound*jBound) - nBombs)) {
+        if (document.querySelectorAll(".bombless").length == ((iBound * jBound) - nBombs)) {
             clearInterval(interval);
             gameOverWin();
         }
@@ -469,7 +489,23 @@ document.querySelector("#difficulty-section").addEventListener("click", function
 });
 
 document.querySelector("#start-btn").addEventListener("click", function () {
-    init();
+    // init();
+    var scores = {
+        easy: {
+            names: ["Ryan", "Tasha", "Jojo", "Alina"],
+            scores: ["11:11", "22:22", "33:33", "44:44"]
+        },
+        medium: {
+            names: ["Ryan", "Tasha", "Jojo", "Alina"],
+            scores: ["11:11", "22:22", "33:33", "44:44"]
+        },
+        hard: {
+            names: ["Ryan", "Tasha", "Jojo", "Alina"],
+            scores: ["11:11", "22:22", "33:33", "44:44"]
+        }
+    }
+    localStorage.setItem("scores", JSON.stringify(scores));
+    console.log(JSON.parse(localStorage.getItem("scores")).easy.names[0]);
 });
 
 document.querySelector("#save-btn").addEventListener("click", function () {
