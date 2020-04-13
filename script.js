@@ -1,50 +1,73 @@
+var container = document.getElementById("container-game");
+
+var iBound;
+var jBound;
+var nBombs;
+var nFlags;
+
+var difficulty;
+
 // Obtain difficulty from user input
-var difficulty = prompt("easy, medium, or hard?");
+function getDifficulty() {
+    difficulty = document.querySelector(".active").textContent.trim();
 
-// Set parameters of game based on difficulty
-if (difficulty === "easy") {
-    var iBound = 8;
-    var jBound = 10;
-    var nBombs = 12;
-    var container = document.getElementById("container");
-    // Dimensions based on 25px buttons
-    container.style.width = "300px"; // 250
-    container.style.height = "240px"; // 200
-}
-else if (difficulty === "medium") {
-    var iBound = 14; // 14
-    var jBound = 18; // 18
-    var nBombs = 34;
-    var container = document.getElementById("container");
-    // Dimensions based on 25px buttons
-    container.style.width = "450px"; // 20*18 or 25*18
-    container.style.height = "350px"; // 20*14 or 25*14
-}
-else {
-    var iBound = 20;
-    var jBound = 24;
-    var nBombs = 75;
-    var container = document.getElementById("container");
-    // Dimensions based on 15px buttons
-    container.style.width = "360px";
-    container.style.height = "300px";
-}
+    // clear all classes from container
+    container.classList.remove("container-easy");
+    container.classList.remove("container-medium");
+    container.classList.remove("container-hard");
 
+
+    // Set parameters of game based on difficulty
+    if (difficulty === "Easy") {
+        iBound = 8;
+        jBound = 10;
+        nBombs = 12;
+        container.classList.add("container-easy");
+        // var container = document.getElementById("container");
+        // // Dimensions based on 30px buttons
+        // container.style.width = "300px"; // 30*10
+        // container.style.height = "240px"; // 30*8
+    }
+    else if (difficulty === "Medium") {
+        iBound = 14; // 14
+        jBound = 18; // 18
+        nBombs = 34;
+        container.classList.add("container-medium");
+        // var container = document.getElementById("container");
+        // // Dimensions based on 25px buttons
+        // container.style.width = "450px"; // 25*18
+        // container.style.height = "350px"; // 25*14
+    }
+    else {
+        iBound = 20;
+        jBound = 24;
+        nBombs = 75;
+        container.classList.add("container-hard");
+        // // Dimensions based on 25px buttons
+        // container.style.width = "600px"; // 25*24
+        // container.style.height = "500px"; // 25*20
+    }
+    nFlags = nBombs;
+    document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
+}
 
 // Create grid of buttons
 function createGrid() {
+
+    // clear any exisiting game
+    container.innerHTML = "";
 
     // iterate to create buttons
     for (var i = 0; i < iBound; i++) {
         for (var j = 0; j < jBound; j++) {
             var dummy = document.createElement("div");
-            document.getElementById("container").appendChild(dummy);
+            container.appendChild(dummy);
 
             // Set size of button based on difficulty
-            if (difficulty === "easy") {
+            if (difficulty === "Easy") {
                 dummy.setAttribute("class", "game-button-easy");
             }
-            else if (difficulty === "medium") {
+            else if (difficulty === "Medium") {
                 dummy.setAttribute("class", "game-button-medium");
             }
             else {
@@ -53,9 +76,9 @@ function createGrid() {
 
             // set color of button based on position
             // on even rows
-            if (i % 2 == 0){
+            if (i % 2 == 0) {
                 // set the first button lighter and alternate
-                if (j % 2 == 0){
+                if (j % 2 == 0) {
                     dummy.classList.add("light-btn");
                 }
                 else {
@@ -65,7 +88,7 @@ function createGrid() {
             // on odd rows
             else {
                 // set the first button darker and alternate
-                if (j % 2 == 0){
+                if (j % 2 == 0) {
                     dummy.classList.add("dark-btn");
                 }
                 else {
@@ -82,9 +105,10 @@ function createGrid() {
 }
 
 // initialize bombs array
-var bombs = [0];
+var bombs = [];
 // create bombs array and assign has-bomb id to corresponding buttons
 function createBombs() {
+    bombs = [0];
     for (var i = 0; i < nBombs; i++) {
         // random number for row of bomb
         var iBomb = Math.floor(Math.random() * iBound);
@@ -98,15 +122,9 @@ function createBombs() {
 
             // assign data-bomb attribute to corresponding button
             var buttonWithBomb = document.getElementById(bombs[i]);
-            if (difficulty === "easy") {
-                buttonWithBomb.setAttribute("data-bomb", "true");
-            }
-            else if (difficulty === "medium") {
-                buttonWithBomb.setAttribute("data-bomb", "true");
-            }
-            else {
-                buttonWithBomb.setAttribute("data-bomb", "true");
-            }
+            buttonWithBomb.setAttribute("data-bomb", "true");
+
+
         }
         else {
             // try again if this button already has a bomb
@@ -129,12 +147,17 @@ function blowUp() {
     }, 50);
 }
 
-createGrid();
-createBombs();
+function init() {
+
+    getDifficulty();
+    createGrid();
+    createBombs();
+
+}
 
 // Look for clicks
 var interval;
-document.getElementById("container").addEventListener("click", function () {
+container.addEventListener("click", function () {
     if (event.target.hasAttribute("data-bomb")) {
         event.target.innerHTML = "<img src='./assets/orca.png' alt='Image of Orca'/>";
         blowUp();
@@ -159,14 +182,14 @@ function checkForBombs(id) {
     document.getElementById(newId).classList.remove("light-btn");
     document.getElementById(newId).classList.remove("dark-btn");
 
-    
+
     // clear any flags
-    if (document.getElementById(id).textContent == "F") {
+    if (document.getElementById(id).textContent == "!") {
         document.getElementById(id).textContent = "";
         nFlags++;
-        console.log(nFlags);
+        document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
     }
-    
+
     // id[0] = row, id[1] = col
 
     // for a button not on the top edge or left edge
@@ -374,9 +397,6 @@ function checkForBombs(id) {
 
 // right click event
 
-
-var nFlags = nBombs;
-
 window.oncontextmenu = function (event) {
     // if it was a button
     if (event.target.id !== "") {
@@ -384,17 +404,27 @@ window.oncontextmenu = function (event) {
         // if it has not been revealed yet
         if (!event.target.classList.contains("bombless")) {
             // if it's not already flagged
-            if (event.target.textContent !== "F") {
-                event.target.textContent = "F";
+            if (event.target.textContent !== "!") {
+                event.target.textContent = "!";
                 nFlags--;
-                console.log(`nFlags = ${nFlags}`);
+                document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
             }
             // if it is already flagged
             else {
                 event.target.textContent = "";
                 nFlags++;
-                console.log(`nFlags = ${nFlags}`);
+                document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
             }
         }
     }
 }
+
+document.querySelector("#difficulty-section").addEventListener("click", function () {
+    document.querySelector("#start-btn").classList.remove("hidden");
+});
+
+document.querySelector("#start-btn").addEventListener("click", function () {
+    document.querySelector("#start-btn").classList.add("hidden");
+    init();
+});
+
