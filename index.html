@@ -13,8 +13,67 @@
 </head>
 
 <body>
+    <!-- View Highscores -->    
+    <div class="modal fade" id="highscores-modal" tabindex="-1" role="dialog" aria-labelledby="Highscores"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="highscores-title">Highscores</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <h5>Easy</h5>
+                                <hr>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <h5>Medium</h5>
+                            <hr>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <h5>Hard</h5>
+                            <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" id="save-score-btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Modal -->
+    <!-- Save Score -->
+    <div class="modal fade" id="save-score-modal" tabindex="-1" role="dialog" aria-labelledby="Save Score"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="score-score-title">Save Score</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="save-score-text" class="col-form-label">Enter your name:</label>
+                    <textarea class="form-control" id="save-score-text"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" id="save-score-btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Play -->
     <div class="modal fade" id="how-to-play-modal" tabindex="-1" role="dialog" aria-labelledby="How to Play"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -26,15 +85,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Click in any square to reveal whether there is an orca in that square. If there is not, 
-                    a number will appear showing how many orcas are in squares adjacent to that square. If 
+                    Click in any square to reveal whether there is an orca in that square. If there is not,
+                    a number will appear showing how many orcas are in squares adjacent to that square. If
                     there are no orcas in the adjacent squares either, those squares' contents are automatically
                     revealed!
                     <br><br>
-                    Click squares until all orca-free squares are revealed. If you click a square with an orca, 
-                    it's game over! 
+                    Click squares until all orca-free squares are revealed. If you click a square with an orca,
+                    it's game over!
                     <br><br>
-                    You may right-click any square to flag it. Right-click again to remove the flag. You have as 
+                    You may right-click any square to flag it. Right-click again to remove the flag. You have as
                     many flags as there are orcas. Use this tool to keep track of where the orcas are.
 
                 </div>
@@ -82,8 +141,9 @@
                 How to Play
             </button>
             <button type="button" class="btn btn-secondary" id="start-btn">New Game</button>
-            <button type="button" class="btn btn-secondary hidden" id="save-score-btn">Save Score</button>
-            <button type="button" class="btn btn-secondary" id="highscores-btn">Highscores</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#save-score-modal">Save
+                Score</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#highscores-modal">Highscores</button>
 
         </section>
     </div>

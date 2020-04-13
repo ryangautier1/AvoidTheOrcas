@@ -150,7 +150,8 @@ function blowUp() {
 }
 
 function init() {
-
+    document.querySelector("#start-btn").classList.add("hidden");
+    document.querySelector("#save-score-btn").classList.add("hidden");
     getDifficulty();
     createGrid();
     createBombs();
@@ -459,6 +460,7 @@ function startTimer() {
 
 function gameOverWin() {
     alert("You Won!");
+    document.querySelector("#save-score-btn").classList.remove("hidden");
     ended = true;
 }
 
@@ -467,6 +469,5 @@ document.querySelector("#difficulty-section").addEventListener("click", function
 });
 
 document.querySelector("#start-btn").addEventListener("click", function () {
-    document.querySelector("#start-btn").classList.add("hidden");
     init();
 });
