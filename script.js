@@ -6,9 +6,11 @@ var nBombs;
 var nFlags;
 
 var difficulty;
+var ended;
 
 // Obtain difficulty from user input
 function getDifficulty() {
+    ended = false;
     difficulty = document.querySelector(".active").textContent.trim();
 
     // clear all classes from container
@@ -124,7 +126,6 @@ function createBombs() {
             var buttonWithBomb = document.getElementById(bombs[i]);
             buttonWithBomb.setAttribute("data-bomb", "true");
 
-
         }
         else {
             // try again if this button already has a bomb
@@ -136,6 +137,7 @@ function createBombs() {
 // Show all bombs because you lost!
 function blowUp() {
     var i = 0;
+    ended = true;
     var interval = setInterval(function () {
         document.getElementById(bombs[i]).innerHTML = "<img src='./assets/orca.png' alt='Image of Orca' class='orca'/>";
 
@@ -158,6 +160,7 @@ function init() {
 
 // Look for clicks
 container.addEventListener("click", function () {
+    if (!ended){
     if (event.target.hasAttribute("data-bomb")) {
         event.target.innerHTML = "<img src='./assets/orca.png' alt='Image of Orca'/>";
         blowUp();
@@ -167,6 +170,7 @@ container.addEventListener("click", function () {
         var newId = event.target.id.split(",");
         checkForBombs(newId);
     }
+}
 });
 
 function checkForBombs(id) {
@@ -447,11 +451,15 @@ function startTimer() {
             clearInterval(interval);
             gameOverWin();
         }
+        else if (ended) {
+            clearInterval(interval);
+        }
     }, 1000);
 };
 
 function gameOverWin() {
     alert("You Won!");
+    ended = true;
 }
 
 document.querySelector("#difficulty-section").addEventListener("click", function () {

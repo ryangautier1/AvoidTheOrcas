@@ -142,6 +142,7 @@ footer {
     display: none !important;
 }
 
+
 @media screen and (max-width: 860px) {
     .game-window {
         min-width: 600px;
