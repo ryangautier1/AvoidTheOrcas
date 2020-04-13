@@ -48,7 +48,7 @@ function getDifficulty() {
         // container.style.height = "500px"; // 25*20
     }
     nFlags = nBombs;
-    document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
+    document.querySelector("#flags").textContent = (`Flags: ${nFlags}`);
 }
 
 // Create grid of buttons
@@ -152,6 +152,7 @@ function init() {
     getDifficulty();
     createGrid();
     createBombs();
+    startTimer();
 
 }
 
@@ -187,7 +188,7 @@ function checkForBombs(id) {
     if (document.getElementById(id).textContent == "!") {
         document.getElementById(id).textContent = "";
         nFlags++;
-        document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
+        document.querySelector("#flags").textContent = (`Flags: ${nFlags}`);
     }
 
     // id[0] = row, id[1] = col
@@ -407,17 +408,47 @@ window.oncontextmenu = function (event) {
             if (event.target.textContent !== "!") {
                 event.target.textContent = "!";
                 nFlags--;
-                document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
+                document.querySelector("#flags").textContent = (`Flags: ${nFlags}`);
             }
             // if it is already flagged
             else {
                 event.target.textContent = "";
                 nFlags++;
-                document.querySelector("#flags").textContent=(`Flags: ${nFlags}`);
+                document.querySelector("#flags").textContent = (`Flags: ${nFlags}`);
             }
         }
     }
 }
+
+
+function startTimer() {
+    var time = document.querySelector("#timer").textContent.split(":");
+    var seconds = parseInt(time[1]);
+    var minutes = parseInt(time[0]);
+    interval = setInterval(function () {
+        var time = document.querySelector("#timer").textContent.split(":");
+        var seconds = parseInt(time[1]);
+        var minutes = parseInt(time[0]);
+        if (seconds < 59) {
+            seconds++;
+        }
+        else
+        {
+            minutes++;
+            seconds=00;
+        }
+
+        if (seconds < 10 && seconds !== 00); {
+            seconds = "0" + seconds;
+        }
+        document.querySelector("#timer").textContent = `${minutes}:${seconds}`;
+        // check if time is up
+        // if (false) {
+        //     gameOver();
+        //     clearInterval(interval);
+        // }
+    }, 1000);
+};
 
 document.querySelector("#difficulty-section").addEventListener("click", function () {
     document.querySelector("#start-btn").classList.remove("hidden");
