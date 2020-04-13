@@ -421,9 +421,9 @@ window.oncontextmenu = function (event) {
 
 
 function startTimer() {
-    // var time = document.querySelector("#timer").textContent.split(":");
-    // var seconds = parseInt(time[1]);
-    // var minutes = parseInt(time[0]);
+    
+    document.querySelector("#timer").textContent = "0:00";
+
     var interval = setInterval(function () {
         var time = document.querySelector("#timer").textContent.split(":");
         var seconds = parseInt(time[1]);
