@@ -8,22 +8,48 @@ var nFlags;
 var difficulty;
 var ended;
 
+function getScores(data) {
+    var arr = []
+    for (const key in data) {
+        arr.push(data[key]);
+    }
+    return arr;
+}
+
+// function getNameFromScore(data) {
+//     for (const key in data) {
+
+//     }
+// }
+
 // Print scores to highscores if scores have been stored
 if (localStorage.getItem("scores")) {
-    var savedData = {
-        easy: {
-            names: JSON.parse(localStorage.getItem("scores")).easy.names,
-            scores: JSON.parse(localStorage.getItem("scores")).easy.scores
-        },
-        medium: {
-            names: JSON.parse(localStorage.getItem("scores")).medium.names,
-            scores: JSON.parse(localStorage.getItem("scores")).medium.scores
-        },
-        hard: {
-            names: JSON.parse(localStorage.getItem("scores")).hard.names,
-            scores: JSON.parse(localStorage.getItem("scores")).hard.scores
-        }
-    }
+    var savedData = JSON.parse(localStorage.getItem("scores"));
+    const easyScores = getScores(savedData.easy);
+    const mediumScores = getScores(savedData.medium);
+    const hardScores = getScores(savedData.hard);
+    
+    
+    // for (const key in savedData.medium) {
+    //     mediumScores.push(savedData.medium[key]);
+    // }
+    // for (const key in savedData.hard) {
+    //     hardScores.push(savedData.hard[key]);
+    // }
+    // var savedData = {
+    //     easy: {
+    //         names: JSON.parse(localStorage.getItem("scores")).easy.names,
+    //         scores: JSON.parse(localStorage.getItem("scores")).easy.scores
+    //     },
+    //     medium: {
+    //         names: JSON.parse(localStorage.getItem("scores")).medium.names,
+    //         scores: JSON.parse(localStorage.getItem("scores")).medium.scores
+    //     },
+    //     hard: {
+    //         names: JSON.parse(localStorage.getItem("scores")).hard.names,
+    //         scores: JSON.parse(localStorage.getItem("scores")).hard.scores
+    //     }
+    // }
 
     function sortScores(scores) {
         return scores.sort(function (a, b) {
@@ -46,55 +72,67 @@ if (localStorage.getItem("scores")) {
         })
     }
 
+    
+    console.log(easyScores);
+    console.log(mediumScores);
+    console.log(hardScores);
+    sortScores(easyScores);
+    sortScores(mediumScores);
+    sortScores(hardScores);
+    console.log(easyScores);
+    console.log(mediumScores);
+    console.log(hardScores);
+
+
     // append easy scores data
-    const unsortedEasyScores = [];
-    for (const index in savedData.easy.scores) {
-        unsortedEasyScores[index] = savedData.easy.scores[index];
-    }
-    sortScores(savedData.easy.scores);
-    const sortedEasyNames = [];
-    for (const index in savedData.easy.names) {
-        sortedEasyNames[index] = savedData.easy.names[savedData.easy.scores.indexOf(unsortedEasyScores[index])];
-        var tag = document.createElement("p");
-        tag.textContent = `${sortedEasyNames[index]} : ${savedData.easy.scores[index]}`;
-        document.querySelector("#easy-scores").append(tag);
-    }
+    // const unsortedEasyScores = [];
+    // for (const index in savedData.easy.scores) {
+    //     unsortedEasyScores[index] = savedData.easy.scores[index];
+    // }
+    // sortScores(savedData.easy.scores);
+    // const sortedEasyNames = [];
+    // for (const index in savedData.easy.names) {
+    //     sortedEasyNames[index] = savedData.easy.names[savedData.easy.scores.indexOf(unsortedEasyScores[index])];
+    //     var tag = document.createElement("p");
+    //     tag.textContent = `${sortedEasyNames[index]} : ${savedData.easy.scores[index]}`;
+    //     document.querySelector("#easy-scores").append(tag);
+    // }
 
-    // append medium scores data
-    const unsortedMediumScores = [];
-    for (const index in savedData.medium.scores) {
-        unsortedMediumScores[index] = savedData.medium.scores[index];
-    }
-    sortScores(savedData.medium.scores);
-    const sortedMediumNames = [];
-    for (const index in savedData.medium.names) {
-        sortedMediumNames[index] = savedData.medium.names[savedData.medium.scores.indexOf(unsortedMediumScores[index])];
-        var tag = document.createElement("p");
-        tag.textContent = `${sortedMediumNames[index]} : ${savedData.medium.scores[index]}`;
-        document.querySelector("#medium-scores").append(tag);
-    }
+    // // append medium scores data
+    // const unsortedMediumScores = [];
+    // for (const index in savedData.medium.scores) {
+    //     unsortedMediumScores[index] = savedData.medium.scores[index];
+    // }
+    // sortScores(savedData.medium.scores);
+    // const sortedMediumNames = [];
+    // for (const index in savedData.medium.names) {
+    //     sortedMediumNames[index] = savedData.medium.names[savedData.medium.scores.indexOf(unsortedMediumScores[index])];
+    //     var tag = document.createElement("p");
+    //     tag.textContent = `${sortedMediumNames[index]} : ${savedData.medium.scores[index]}`;
+    //     document.querySelector("#medium-scores").append(tag);
+    // }
 
-    // append hard scores data
-    const unsortedHardScores = [];
-    for (const index in savedData.hard.scores) {
-        unsortedHardScores[index] = savedData.hard.scores[index];
-    }
-    sortScores(savedData.hard.scores);
-    const sortedHardNames = [];
-    for (const index in savedData.hard.names) {
-        console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
+    // // append hard scores data
+    // const unsortedHardScores = [];
+    // for (const index in savedData.hard.scores) {
+    //     unsortedHardScores[index] = savedData.hard.scores[index];
+    // }
+    // sortScores(savedData.hard.scores);
+    // const sortedHardNames = [];
+    // for (const index in savedData.hard.names) {
+    //     console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
 
-        // console.log(unsortedHardScores);
-        // console.log(savedData.hard.scores);
-        // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
-        // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]))
-        // names: ["Jacob", "Tasha", "Jojo", "Mason"],
-        // scores: ["10:11", "2:22", "33:33", "4:44"]
-        sortedHardNames[index] = savedData.hard.names[savedData.hard.scores.indexOf(unsortedHardScores[index])];
-        var tag = document.createElement("p");
-        tag.textContent = `${sortedHardNames[index]} : ${savedData.hard.scores[index]}`;
-        document.querySelector("#hard-scores").append(tag);
-    }
+    //     // console.log(unsortedHardScores);
+    //     // console.log(savedData.hard.scores);
+    //     // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
+    //     // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]))
+    //     // names: ["Jacob", "Tasha", "Jojo", "Mason"],
+    //     // scores: ["10:11", "2:22", "33:33", "4:44"]
+    //     sortedHardNames[index] = savedData.hard.names[savedData.hard.scores.indexOf(unsortedHardScores[index])];
+    //     var tag = document.createElement("p");
+    //     tag.textContent = `${sortedHardNames[index]} : ${savedData.hard.scores[index]}`;
+    //     document.querySelector("#hard-scores").append(tag);
+    // }
 }
 // Obtain difficulty from user input
 function getDifficulty() {
@@ -559,16 +597,23 @@ document.querySelector("#start-btn").addEventListener("click", function () {
     // init();
     var scores = {
         easy: {
-            names: ["Ryan", "Tasha", "Jojo", "Alina"],
-            scores: ["21:11", "20:22", "31:33", "22:00"]
+            "ryan": "21:21",
+            "tasha": "20:22",
+            "david": "10:11",
+            "mason": "5:54"
+            // ["21:11", "20:22", "31:33", "22:00"]
         },
         medium: {
-            names: ["Sam", "Tasha", "David", "Javi"],
-            scores: ["10:44", "70:02", "44:33", "04:00"]
+            "ryan": "24:15",
+            "tasha": "29:29",
+            "david": "4:51",
+            "mason": "8:40"
         },
         hard: {
-            names: ["Jacob", "Tasha", "Jojo", "Mason"],
-            scores: ["10:11", "2:22", "33:33", "4:44"]
+            "ryan": "1:20",
+            "tasha": "0:06",
+            "david": "0:10",
+            "mason": "7:04"
         }
     }
     localStorage.setItem("scores", JSON.stringify(scores));
@@ -580,3 +625,20 @@ document.querySelector("#save-btn").addEventListener("click", function () {
     console.log("saved score")
 });
 
+// var scores = {
+//     easy: {
+//         "ryan": "21:21",
+//         "tasha": "20:22",
+//         "david": "10:11",
+//         "mason": "5:54"
+//         // ["21:11", "20:22", "31:33", "22:00"]
+//     },
+//     medium: {
+//         names: ["Sam", "Tasha", "David", "Javi"],
+//         scores: ["10:44", "70:02", "44:33", "04:00"]
+//     },
+//     hard: {
+//         names: ["Jacob", "Tasha", "Jojo", "Mason"],
+//         scores: ["10:11", "2:22", "33:33", "4:44"]
+//     }
+// }
