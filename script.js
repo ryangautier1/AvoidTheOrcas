@@ -16,11 +16,34 @@ function getScores(data) {
     return arr;
 }
 
-// function getNameFromScore(data) {
-//     for (const key in data) {
+function getNameFromScore(unsortedData, sortedData) {
+    var arr = [];
+    for (const key in unsortedData) {
+        arr[sortedData.indexOf(unsortedData[key])] = key;
+    }
+    return arr;
+}
 
-//     }
-// }
+function sortScores(scores) {
+    return scores.sort(function (a, b) {
+        var minute1 = parseInt(a.split(":")[0]);
+        var seconds1 = parseInt(a.split(":")[1]);
+        var minute2 = parseInt(b.split(":")[0]);
+        var seconds2 = parseInt(b.split(":")[1]);
+
+
+        // if the minutes being compared are the same
+        if (minute2 - minute1 === 0) {
+            // sort them by which 'seconds' is less 
+            return (seconds1 - seconds2);
+        }
+        // if the minutes being comared are not the same
+        else {
+            // sort them by which 'minutes' is less
+            return (minute1 - minute2);
+        }
+    })
+}
 
 // Print scores to highscores if scores have been stored
 if (localStorage.getItem("scores")) {
@@ -28,111 +51,36 @@ if (localStorage.getItem("scores")) {
     const easyScores = getScores(savedData.easy);
     const mediumScores = getScores(savedData.medium);
     const hardScores = getScores(savedData.hard);
-    
-    
-    // for (const key in savedData.medium) {
-    //     mediumScores.push(savedData.medium[key]);
-    // }
-    // for (const key in savedData.hard) {
-    //     hardScores.push(savedData.hard[key]);
-    // }
-    // var savedData = {
-    //     easy: {
-    //         names: JSON.parse(localStorage.getItem("scores")).easy.names,
-    //         scores: JSON.parse(localStorage.getItem("scores")).easy.scores
-    //     },
-    //     medium: {
-    //         names: JSON.parse(localStorage.getItem("scores")).medium.names,
-    //         scores: JSON.parse(localStorage.getItem("scores")).medium.scores
-    //     },
-    //     hard: {
-    //         names: JSON.parse(localStorage.getItem("scores")).hard.names,
-    //         scores: JSON.parse(localStorage.getItem("scores")).hard.scores
-    //     }
-    // }
 
-    function sortScores(scores) {
-        return scores.sort(function (a, b) {
-            var minute1 = parseInt(a.split(":")[0]);
-            var seconds1 = parseInt(a.split(":")[1]);
-            var minute2 = parseInt(b.split(":")[0]);
-            var seconds2 = parseInt(b.split(":")[1]);
-
-
-            // if the minutes being compared are the same
-            if (minute2 - minute1 === 0) {
-                // sort them by which 'seconds' is less 
-                return (seconds1 - seconds2);
-            }
-            // if the minutes being comared are not the same
-            else {
-                // sort them by which 'minutes' is less
-                return (minute1 - minute2);
-            }
-        })
-    }
-
-    
-    console.log(easyScores);
-    console.log(mediumScores);
-    console.log(hardScores);
     sortScores(easyScores);
     sortScores(mediumScores);
     sortScores(hardScores);
-    console.log(easyScores);
-    console.log(mediumScores);
-    console.log(hardScores);
+
+    const easyNames = getNameFromScore(savedData.easy, easyScores);
+    const mediumNames = getNameFromScore(savedData.medium, mediumScores);
+    const hardNames = getNameFromScore(savedData.hard, hardScores);
 
 
     // append easy scores data
-    // const unsortedEasyScores = [];
-    // for (const index in savedData.easy.scores) {
-    //     unsortedEasyScores[index] = savedData.easy.scores[index];
-    // }
-    // sortScores(savedData.easy.scores);
-    // const sortedEasyNames = [];
-    // for (const index in savedData.easy.names) {
-    //     sortedEasyNames[index] = savedData.easy.names[savedData.easy.scores.indexOf(unsortedEasyScores[index])];
-    //     var tag = document.createElement("p");
-    //     tag.textContent = `${sortedEasyNames[index]} : ${savedData.easy.scores[index]}`;
-    //     document.querySelector("#easy-scores").append(tag);
-    // }
+    for (var i = 0; i < easyScores.length; i++) {
+        var tag = document.createElement("p");
+        tag.textContent = `${easyNames[i]} : ${easyScores[i]}`;
+        document.querySelector("#easy-scores").append(tag);
+    }
 
-    // // append medium scores data
-    // const unsortedMediumScores = [];
-    // for (const index in savedData.medium.scores) {
-    //     unsortedMediumScores[index] = savedData.medium.scores[index];
-    // }
-    // sortScores(savedData.medium.scores);
-    // const sortedMediumNames = [];
-    // for (const index in savedData.medium.names) {
-    //     sortedMediumNames[index] = savedData.medium.names[savedData.medium.scores.indexOf(unsortedMediumScores[index])];
-    //     var tag = document.createElement("p");
-    //     tag.textContent = `${sortedMediumNames[index]} : ${savedData.medium.scores[index]}`;
-    //     document.querySelector("#medium-scores").append(tag);
-    // }
+    // append medium scores data
+    for (var i = 0; i < mediumScores.length; i++) {
+        var tag = document.createElement("p");
+        tag.textContent = `${mediumNames[i]} : ${mediumScores[i]}`;
+        document.querySelector("#medium-scores").append(tag);
+    }
 
-    // // append hard scores data
-    // const unsortedHardScores = [];
-    // for (const index in savedData.hard.scores) {
-    //     unsortedHardScores[index] = savedData.hard.scores[index];
-    // }
-    // sortScores(savedData.hard.scores);
-    // const sortedHardNames = [];
-    // for (const index in savedData.hard.names) {
-    //     console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
-
-    //     // console.log(unsortedHardScores);
-    //     // console.log(savedData.hard.scores);
-    //     // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
-    //     // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]))
-    //     // names: ["Jacob", "Tasha", "Jojo", "Mason"],
-    //     // scores: ["10:11", "2:22", "33:33", "4:44"]
-    //     sortedHardNames[index] = savedData.hard.names[savedData.hard.scores.indexOf(unsortedHardScores[index])];
-    //     var tag = document.createElement("p");
-    //     tag.textContent = `${sortedHardNames[index]} : ${savedData.hard.scores[index]}`;
-    //     document.querySelector("#hard-scores").append(tag);
-    // }
+    // append hard scores data
+    for (var i = 0; i < hardScores.length; i++) {
+        var tag = document.createElement("p");
+        tag.textContent = `${hardNames[i]} : ${hardScores[i]}`;
+        document.querySelector("#hard-scores").append(tag);
+    }
 }
 // Obtain difficulty from user input
 function getDifficulty() {
