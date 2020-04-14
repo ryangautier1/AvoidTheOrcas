@@ -32,6 +32,7 @@ if (localStorage.getItem("scores")) {
             var minute2 = parseInt(b.split(":")[0]);
             var seconds2 = parseInt(b.split(":")[1]);
 
+
             // if the minutes being compared are the same
             if (minute2 - minute1 === 0) {
                 // sort them by which 'seconds' is less 
@@ -49,7 +50,6 @@ if (localStorage.getItem("scores")) {
     const unsortedEasyScores = [];
     for (const index in savedData.easy.scores) {
         unsortedEasyScores[index] = savedData.easy.scores[index];
-        var tag = document.createElement("p");
     }
     sortScores(savedData.easy.scores);
     const sortedEasyNames = [];
@@ -64,7 +64,6 @@ if (localStorage.getItem("scores")) {
     const unsortedMediumScores = [];
     for (const index in savedData.medium.scores) {
         unsortedMediumScores[index] = savedData.medium.scores[index];
-        var tag = document.createElement("p");
     }
     sortScores(savedData.medium.scores);
     const sortedMediumNames = [];
@@ -79,11 +78,18 @@ if (localStorage.getItem("scores")) {
     const unsortedHardScores = [];
     for (const index in savedData.hard.scores) {
         unsortedHardScores[index] = savedData.hard.scores[index];
-        var tag = document.createElement("p");
     }
     sortScores(savedData.hard.scores);
     const sortedHardNames = [];
     for (const index in savedData.hard.names) {
+        console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
+
+        // console.log(unsortedHardScores);
+        // console.log(savedData.hard.scores);
+        // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]));
+        // console.log(savedData.hard.scores.indexOf(unsortedHardScores[index]))
+        // names: ["Jacob", "Tasha", "Jojo", "Mason"],
+        // scores: ["10:11", "2:22", "33:33", "4:44"]
         sortedHardNames[index] = savedData.hard.names[savedData.hard.scores.indexOf(unsortedHardScores[index])];
         var tag = document.createElement("p");
         tag.textContent = `${sortedHardNames[index]} : ${savedData.hard.scores[index]}`;
@@ -554,11 +560,11 @@ document.querySelector("#start-btn").addEventListener("click", function () {
     var scores = {
         easy: {
             names: ["Ryan", "Tasha", "Jojo", "Alina"],
-            scores: ["1:11", "0:22", "1:33", "2:00"]
+            scores: ["21:11", "20:22", "31:33", "22:00"]
         },
         medium: {
             names: ["Sam", "Tasha", "David", "Javi"],
-            scores: ["0:44", "0:02", "4:33", "4:00"]
+            scores: ["10:44", "70:02", "44:33", "04:00"]
         },
         hard: {
             names: ["Jacob", "Tasha", "Jojo", "Mason"],
@@ -573,3 +579,4 @@ document.querySelector("#save-btn").addEventListener("click", function () {
     // localStorage.setItem("", scores);
     console.log("saved score")
 });
+
