@@ -243,7 +243,7 @@ function blowUp() {
 
 function init() {
     document.querySelector("#start-btn").classList.add("hidden");
-    // document.querySelector("#save-score-btn").classList.add("hidden");
+    document.querySelector("#save-score-btn").classList.add("hidden");
     getDifficulty();
     createGrid();
     createBombs();
