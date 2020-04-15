@@ -4,6 +4,7 @@ var iBound;
 var jBound;
 var nBombs;
 var nFlags;
+var interval;
 
 var difficulty;
 var ended;
@@ -46,19 +47,19 @@ function sortScores(scores) {
 }
 
 // Print scores to highscores if scores have been stored
-if (localStorage.getItem("scores")) {
+if (window.localStorage.length !== 0) {
     var savedData = JSON.parse(localStorage.getItem("scores"));
-    const easyScores = getScores(savedData.easy);
-    const mediumScores = getScores(savedData.medium);
-    const hardScores = getScores(savedData.hard);
+    const easyScores = getScores(savedData.Easy);
+    const mediumScores = getScores(savedData.Medium);
+    const hardScores = getScores(savedData.Hard);
 
     sortScores(easyScores);
     sortScores(mediumScores);
     sortScores(hardScores);
 
-    const easyNames = getNameFromScore(savedData.easy, easyScores);
-    const mediumNames = getNameFromScore(savedData.medium, mediumScores);
-    const hardNames = getNameFromScore(savedData.hard, hardScores);
+    const easyNames = getNameFromScore(savedData.Easy, easyScores);
+    const mediumNames = getNameFromScore(savedData.Medium, mediumScores);
+    const hardNames = getNameFromScore(savedData.Hard, hardScores);
 
 
     // append easy scores data
@@ -82,6 +83,23 @@ if (localStorage.getItem("scores")) {
         document.querySelector("#hard-scores").append(tag);
     }
 }
+// if there is no local storage data yet
+else {
+    // initialize scores
+    let scores = {
+        Easy: {
+        },
+        Medium: {
+        },
+        Hard: {
+        }
+    }
+    // store empty scores so data can be written
+    localStorage.setItem("scores", JSON.stringify(scores));
+    // save to variable
+    var savedData = JSON.parse(localStorage.getItem("scores"));
+}
+
 // Obtain difficulty from user input
 function getDifficulty() {
     ended = false;
@@ -225,7 +243,7 @@ function blowUp() {
 
 function init() {
     document.querySelector("#start-btn").classList.add("hidden");
-    document.querySelector("#save-score-btn").classList.add("hidden");
+    // document.querySelector("#save-score-btn").classList.add("hidden");
     getDifficulty();
     createGrid();
     createBombs();
@@ -502,8 +520,9 @@ window.oncontextmenu = function (event) {
 function startTimer() {
 
     document.querySelector("#timer").textContent = "0:00";
+    clearInterval(interval);
 
-    var interval = setInterval(function () {
+    interval = setInterval(function () {
         var time = document.querySelector("#timer").textContent.split(":");
         var seconds = parseInt(time[1]);
         var minutes = parseInt(time[0]);
@@ -542,51 +561,23 @@ document.querySelector("#difficulty-section").addEventListener("click", function
 });
 
 document.querySelector("#start-btn").addEventListener("click", function () {
-    // init();
-    var scores = {
-        easy: {
-            "ryan": "21:21",
-            "tasha": "20:22",
-            "david": "10:11",
-            "mason": "5:54"
-            // ["21:11", "20:22", "31:33", "22:00"]
-        },
-        medium: {
-            "ryan": "24:15",
-            "tasha": "29:29",
-            "david": "4:51",
-            "mason": "8:40"
-        },
-        hard: {
-            "ryan": "1:20",
-            "tasha": "0:06",
-            "david": "0:10",
-            "mason": "7:04"
-        }
-    }
-    localStorage.setItem("scores", JSON.stringify(scores));
+    init();
 });
 
 document.querySelector("#save-btn").addEventListener("click", function () {
-    // var scores
-    // localStorage.setItem("", scores);
+    // name from user input
+    var name = document.querySelector("#save-score-text").value;
+
+    // score from timer content
+    var score = document.querySelector("#timer").textContent;
+    
+    savedData[difficulty][name] = score;
+    localStorage.setItem("scores", JSON.stringify(savedData));
+
+    // append to highscores
+    var tag = document.createElement("p");
+    tag.textContent = `${name} : ${score}`;
+    difficulty = difficulty.toLowerCase();
+    document.querySelector(`#${difficulty}-scores`).append(tag);
     console.log("saved score")
 });
-
-// var scores = {
-//     easy: {
-//         "ryan": "21:21",
-//         "tasha": "20:22",
-//         "david": "10:11",
-//         "mason": "5:54"
-//         // ["21:11", "20:22", "31:33", "22:00"]
-//     },
-//     medium: {
-//         names: ["Sam", "Tasha", "David", "Javi"],
-//         scores: ["10:44", "70:02", "44:33", "04:00"]
-//     },
-//     hard: {
-//         names: ["Jacob", "Tasha", "Jojo", "Mason"],
-//         scores: ["10:11", "2:22", "33:33", "4:44"]
-//     }
-// }
