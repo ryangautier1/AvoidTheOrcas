@@ -581,3 +581,10 @@ document.querySelector("#save-btn").addEventListener("click", function () {
     document.querySelector(`#${difficulty}-scores`).append(tag);
     console.log("saved score")
 });
+
+document.querySelector("#clear-scores-btn").addEventListener("click", function () {
+    localStorage.clear();
+    document.querySelector("#easy-scores").innerHTML = "";
+    document.querySelector("#medium-scores").innerHTML = "";
+    document.querySelector("#hard-scores").innerHTML = "";
+});
