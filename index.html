@@ -8,12 +8,12 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
 
 </head>
 
 <body>
-    <!-- View Highscores -->
+    <!-- View Highscores Modal-->
     <div class="modal fade" id="highscores-modal" tabindex="-1" role="dialog" aria-labelledby="Highscores"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <!-- Save Score -->
+    <!-- Save Score Modal -->
     <div class="modal fade" id="save-score-modal" tabindex="-1" role="dialog" aria-labelledby="Save Score"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <!-- How to Play -->
+    <!-- How to Play Modal -->
     <div class="modal fade" id="how-to-play-modal" tabindex="-1" role="dialog" aria-labelledby="How to Play"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -136,7 +136,10 @@
         </div>
 
         <section id="container-game">
+            <div id="welcome-message">You are a fish! Navigate the ocean and avoid the ocra whales!</div>
+
         </section>
+
         <section id="button-section">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#how-to-play-modal">

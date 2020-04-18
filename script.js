@@ -1,14 +1,16 @@
 var container = document.getElementById("container-game");
 
+
+// initialize variables
 var iBound;
 var jBound;
 var nBombs;
 var nFlags;
 var interval;
-
 var difficulty;
 var ended;
 
+// get scores and store them in array
 function getScores(data) {
     var arr = []
     for (const key in data) {
@@ -17,6 +19,7 @@ function getScores(data) {
     return arr;
 }
 
+// make array of names that correspond with their scores
 function getNameFromScore(unsortedData, sortedData) {
     var arr = [];
     for (const key in unsortedData) {
@@ -25,6 +28,7 @@ function getNameFromScore(unsortedData, sortedData) {
     return arr;
 }
 
+// sort scores from fastest to slowest
 function sortScores(scores) {
     return scores.sort(function (a, b) {
         var minute1 = parseInt(a.split(":")[0]);
@@ -47,8 +51,8 @@ function sortScores(scores) {
 }
 
 // Print scores to highscores if scores have been stored
-if (window.localStorage.length !== 0) {
-    var savedData = JSON.parse(localStorage.getItem("scores"));
+if ("minesweeperScores" in window.localStorage) {
+    var savedData = JSON.parse(localStorage.getItem("minesweeperScores"));
     const easyScores = getScores(savedData.Easy);
     const mediumScores = getScores(savedData.Medium);
     const hardScores = getScores(savedData.Hard);
@@ -95,13 +99,14 @@ else {
         }
     }
     // store empty scores so data can be written
-    localStorage.setItem("scores", JSON.stringify(scores));
+    localStorage.setItem("minesweeperScores", JSON.stringify(scores));
     // save to variable
-    var savedData = JSON.parse(localStorage.getItem("scores"));
+    var savedData = JSON.parse(localStorage.getItem("minesweeperScores"));
 }
 
 // Obtain difficulty from user input
 function getDifficulty() {
+    // ended = false will enable the click listener and timer
     ended = false;
     difficulty = document.querySelector(".active").textContent.trim();
 
@@ -117,29 +122,18 @@ function getDifficulty() {
         jBound = 10;
         nBombs = 12;
         container.classList.add("container-easy");
-        // var container = document.getElementById("container");
-        // // Dimensions based on 30px buttons
-        // container.style.width = "300px"; // 30*10
-        // container.style.height = "240px"; // 30*8
     }
     else if (difficulty === "Medium") {
         iBound = 14; // 14
         jBound = 18; // 18
         nBombs = 34;
         container.classList.add("container-medium");
-        // var container = document.getElementById("container");
-        // // Dimensions based on 25px buttons
-        // container.style.width = "450px"; // 25*18
-        // container.style.height = "350px"; // 25*14
     }
     else {
         iBound = 20;
         jBound = 24;
         nBombs = 75;
         container.classList.add("container-hard");
-        // // Dimensions based on 25px buttons
-        // container.style.width = "600px"; // 25*24
-        // container.style.height = "500px"; // 25*20
     }
     nFlags = nBombs;
     document.querySelector("#flags").textContent = (`Flags: ${nFlags}`);
@@ -229,6 +223,7 @@ function createBombs() {
 // Show all bombs because you lost!
 function blowUp() {
     var i = 0;
+    // ended = true will end the click listener and timer
     ended = true;
     var interval = setInterval(function () {
         document.getElementById(bombs[i]).innerHTML = "<img src='./assets/orca.png' alt='Image of Orca' class='orca'/>";
@@ -553,6 +548,7 @@ function startTimer() {
 function gameOverWin() {
     alert("You Won!");
     document.querySelector("#save-score-btn").classList.remove("hidden");
+    // ended = true will end the click listener and timer
     ended = true;
 }
 
@@ -572,7 +568,7 @@ document.querySelector("#save-btn").addEventListener("click", function () {
     var score = document.querySelector("#timer").textContent;
     
     savedData[difficulty][name] = score;
-    localStorage.setItem("scores", JSON.stringify(savedData));
+    localStorage.setItem("minesweeperScores", JSON.stringify(savedData));
 
     // append to highscores
     var tag = document.createElement("p");
