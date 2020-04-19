@@ -243,7 +243,6 @@ function init() {
     createGrid();
     createBombs();
     startTimer();
-
 }
 
 // Look for clicks
@@ -262,12 +261,18 @@ container.addEventListener("click", function () {
 });
 
 function checkForBombs(id) {
+    // Initialize variables
     var btnClickedNBombs = 0;
+    // Array of IDs for recursive calling
+    const positionArr = [];
+    var i = 0;
 
 
     var id0 = parseInt(id[0]);
     var id1 = parseInt(id[1]);
     var newId = id0 + "," + id1;
+
+
 
     // add bombless class and remove light and dark 
     document.getElementById(newId).classList.add("bombless");
@@ -291,6 +296,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) - 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -304,6 +311,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]);
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -317,6 +326,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) + 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -330,6 +341,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) - 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         // if (!document.getElementById(newId).classList.contains("bombless")) {
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
@@ -343,6 +356,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) + 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
@@ -355,6 +370,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) - 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
@@ -367,6 +384,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]);
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
@@ -379,6 +398,8 @@ function checkForBombs(id) {
         var newId1 = parseInt(id[1]) + 1;
 
         var newId = newId0.toString() + "," + newId1.toString();
+        positionArr[i] = newId;
+        i++;
 
         if (document.getElementById(newId).hasAttribute("data-bomb")) {
             btnClickedNBombs++;
@@ -388,107 +409,20 @@ function checkForBombs(id) {
         document.getElementById(id).textContent = btnClickedNBombs;
     }
     else {
-        // for a button not on the top edge or left edge   
-        if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== 0) {
-
-            // top left
-            var newId0 = parseInt(id[0]) - 1;
-            var newId1 = parseInt(id[1]) - 1;
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-
+        positionArr.forEach(element => {
+            element = element.split(",");
             // if it does not have a bomb or bombless class
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
+            if (!document.getElementById(element).hasAttribute("data-bomb") && !document.getElementById(element).classList.contains("bombless")) {
+                checkForBombs(element);
             }
-
-        }
-        // for a button not on the top edge
-        if (parseInt(id[0]) !== 0) {
-            // up and center
-            var newId0 = parseInt(id[0]) - 1;
-            var newId1 = parseInt(id[1]);
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
-            }
-        }
-        // for a button not on the top edge or right edge
-        if (parseInt(id[0]) !== 0 && parseInt(id[1]) !== jBound - 1) {
-            // up and right
-
-            var newId0 = parseInt(id[0]) - 1;
-            var newId1 = parseInt(id[1]) + 1;
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
-            }
-        }
-
-
-        if (parseInt(id[1]) !== 0) {
-            // center left
-            var newId0 = parseInt(id[0]);
-            var newId1 = parseInt(id[1]) - 1;
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
-            }
-        }
-
-        if (parseInt(id[1]) !== jBound - 1) {
-            // center right
-            var newId0 = parseInt(id[0]);
-            var newId1 = parseInt(id[1]) + 1;
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
-            }
-        }
-
-        if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== 0) {
-            // bottom left
-            var newId0 = parseInt(id[0]) + 1;
-            var newId1 = parseInt(id[1]) - 1;
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
-            }
-        }
-
-        if (parseInt(id[0]) !== iBound - 1) {
-            // bottom center
-            var newId0 = parseInt(id[0]) + 1;
-            var newId1 = parseInt(id[1]);
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
-            }
-        }
-
-        if (parseInt(id[0]) !== iBound - 1 && parseInt(id[1]) !== jBound - 1) {
-            // bottom right
-            var newId0 = parseInt(id[0]) + 1;
-            var newId1 = parseInt(id[1]) + 1;
-            var newId = newId0.toString() + "," + newId1.toString();
-            newId = newId.split(",");
-            if (!document.getElementById(newId).hasAttribute("data-bomb") && !document.getElementById(newId).classList.contains("bombless")) {
-                checkForBombs(newId);
-            }
-        }
-
+        });
+        
     }
 
 }
 
-// right click event
 
+// right click event
 window.oncontextmenu = function (event) {
     // if it was a button
     if (event.target.id !== "") {
@@ -566,7 +500,7 @@ document.querySelector("#save-btn").addEventListener("click", function () {
 
     // score from timer content
     var score = document.querySelector("#timer").textContent;
-    
+
     savedData[difficulty][name] = score;
     localStorage.setItem("minesweeperScores", JSON.stringify(savedData));
 
