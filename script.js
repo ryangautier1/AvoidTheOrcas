@@ -104,6 +104,15 @@ else {
     var savedData = JSON.parse(localStorage.getItem("minesweeperScores"));
 }
 
+function init() {
+    document.querySelector("#start-btn").classList.add("hidden");
+    document.querySelector("#save-score-btn").classList.add("hidden");
+    getDifficulty();
+    createGrid();
+    createBombs();
+    startTimer();
+}
+
 // Obtain difficulty from user input
 function getDifficulty() {
     // ended = false will enable the click listener and timer
@@ -236,15 +245,6 @@ function blowUp() {
     }, 50);
 }
 
-function init() {
-    document.querySelector("#start-btn").classList.add("hidden");
-    document.querySelector("#save-score-btn").classList.add("hidden");
-    getDifficulty();
-    createGrid();
-    createBombs();
-    startTimer();
-}
-
 // Look for clicks
 container.addEventListener("click", function () {
     if (!ended) {
@@ -267,12 +267,10 @@ function checkForBombs(id) {
     const positionArr = [];
     var i = 0;
 
-
+    // id of button clicked
     var id0 = parseInt(id[0]);
     var id1 = parseInt(id[1]);
     var newId = id0 + "," + id1;
-
-
 
     // add bombless class and remove light and dark 
     document.getElementById(newId).classList.add("bombless");
@@ -294,8 +292,9 @@ function checkForBombs(id) {
         // up and left
         var newId0 = parseInt(id[0]) - 1;
         var newId1 = parseInt(id[1]) - 1;
-
         var newId = newId0.toString() + "," + newId1.toString();
+        
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -309,8 +308,9 @@ function checkForBombs(id) {
         // up and center
         var newId0 = parseInt(id[0]) - 1;
         var newId1 = parseInt(id[1]);
-
         var newId = newId0.toString() + "," + newId1.toString();
+        
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -324,8 +324,9 @@ function checkForBombs(id) {
         // up and right
         var newId0 = parseInt(id[0]) - 1;
         var newId1 = parseInt(id[1]) + 1;
-
         var newId = newId0.toString() + "," + newId1.toString();
+
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -339,8 +340,9 @@ function checkForBombs(id) {
         // center and left
         var newId0 = parseInt(id[0]);
         var newId1 = parseInt(id[1]) - 1;
-
         var newId = newId0.toString() + "," + newId1.toString();
+
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -354,8 +356,9 @@ function checkForBombs(id) {
         // center and right
         var newId0 = parseInt(id[0]);
         var newId1 = parseInt(id[1]) + 1;
-
         var newId = newId0.toString() + "," + newId1.toString();
+
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -368,8 +371,9 @@ function checkForBombs(id) {
         // down and left
         var newId0 = parseInt(id[0]) + 1;
         var newId1 = parseInt(id[1]) - 1;
-
         var newId = newId0.toString() + "," + newId1.toString();
+
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -382,8 +386,9 @@ function checkForBombs(id) {
         // down and center
         var newId0 = parseInt(id[0]) + 1;
         var newId1 = parseInt(id[1]);
-
         var newId = newId0.toString() + "," + newId1.toString();
+
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -396,8 +401,9 @@ function checkForBombs(id) {
         // down and right
         var newId0 = parseInt(id[0]) + 1;
         var newId1 = parseInt(id[1]) + 1;
-
         var newId = newId0.toString() + "," + newId1.toString();
+
+        // add to array of squares to be tested
         positionArr[i] = newId;
         i++;
 
@@ -422,7 +428,7 @@ function checkForBombs(id) {
 }
 
 
-// right click event
+// right click event for flags
 window.oncontextmenu = function (event) {
     // if it was a button
     if (event.target.id !== "") {
@@ -494,13 +500,18 @@ document.querySelector("#start-btn").addEventListener("click", function () {
     init();
 });
 
+document.querySelector("#save-score-btn").addEventListener("click", function() {
+    // score from timer content
+    var score = document.querySelector("#timer").textContent;
+    // Write score in modal
+    document.querySelector("#save-score-title").textContent = `Save Score : ${score}`;
+})
+
 document.querySelector("#save-btn").addEventListener("click", function () {
     // name from user input
     var name = document.querySelector("#save-score-text").value;
-
-    // score from timer content
+    
     var score = document.querySelector("#timer").textContent;
-
     savedData[difficulty][name] = score;
     localStorage.setItem("minesweeperScores", JSON.stringify(savedData));
 
@@ -509,10 +520,12 @@ document.querySelector("#save-btn").addEventListener("click", function () {
     tag.textContent = `${name} : ${score}`;
     difficulty = difficulty.toLowerCase();
     document.querySelector(`#${difficulty}-scores`).append(tag);
-    console.log("saved score")
+
+    // append response to modal
+    document.querySelector(".col-form-label").textContent = "Score saved!"
 });
 
-document.querySelector("#clear-scores-btn").addEventListener("click", function () {
+document.querySelector("#clear-scores-btn").addEventListener("click", function() {
     localStorage.clear();
     document.querySelector("#easy-scores").innerHTML = "";
     document.querySelector("#medium-scores").innerHTML = "";
