@@ -240,7 +240,8 @@ function blowUp() {
         i++;
         if (i == bombs.length) {
             alert("Game Over!");
-            clearInterval(interval)
+            clearInterval(interval);
+            document.querySelector("#start-btn").classList.remove("hidden");
         }
     }, 50);
 }
